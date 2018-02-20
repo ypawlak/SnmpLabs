@@ -1,12 +1,14 @@
-﻿using System;
+﻿using SmiParser;
+using System;
 
-namespace BEREncoder
+namespace BerEncoder
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MibData mib = MibParser.Parse("RFC1213-MIB");
+            mib.MibTreeRoot.PrintToConsole("", true);
         }
     }
 }
