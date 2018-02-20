@@ -9,34 +9,35 @@ namespace SmiParser
     {
         static void Main(string[] args)
         {
-            MibParser.Parse("RFC1213-MIB");
+            MibData mib = MibParser.Parse("RFC1213-MIB");
+            mib.MibTreeRoot.PrintToConsole("", true);
 
-            System.Diagnostics.Debug.WriteLine(
-                string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.ObjectTypeAccess>()));
-            System.Diagnostics.Debug.WriteLine(
-                string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.ObjectTypeStatus>()));
+            //System.Diagnostics.Debug.WriteLine(
+            //    string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.ObjectTypeAccess>()));
+            //System.Diagnostics.Debug.WriteLine(
+            //    string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.ObjectTypeStatus>()));
 
-            string DataTypeNameGrp = "dtName";
-            string DataTypeScopeGrp = "dtScope";
-            string DataTypeIdGrp = "dtId";
-            string DataTypeClassGrp = "dtClass";
-            string DataTypeBaseTypeGrp = "dtBaseType";
-            string DataTypeSizeGrp = "dtSize";
-            string DataTypeSizeMinGrp = "dtSizeMin";
-            string DataTypeSizeMaxGrp = "dtSizeMax";
-            System.Diagnostics.Debug.WriteLine(
-                string.Format(@"(?<{0}>{1})\s*::=\s*\[(?<{2}>\w+)\s*(?<{3}>[0-9]+)\].*?(?<{4}>{5})\s*(?<{6}>{7})\s*(\(.*?(?<{8}>[0-9]+)\)\)|\((?<{9}>[0-9]+)..(?<{10}>[0-9]+)\)|\s*?)",
-                    DataTypeNameGrp,
-                    @"\w+",
-                    DataTypeScopeGrp,
-                    DataTypeIdGrp,
-                    DataTypeClassGrp,
-                    string.Join("|", Enum.GetNames(typeof(CustomDataType.ClassEnum))),
-                    DataTypeBaseTypeGrp,
-                    string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.DataTypeBase>()),
-                    DataTypeSizeGrp,
-                    DataTypeSizeMinGrp,
-                    DataTypeSizeMaxGrp));
+            //string DataTypeNameGrp = "dtName";
+            //string DataTypeScopeGrp = "dtScope";
+            //string DataTypeIdGrp = "dtId";
+            //string DataTypeClassGrp = "dtClass";
+            //string DataTypeBaseTypeGrp = "dtBaseType";
+            //string DataTypeSizeGrp = "dtSize";
+            //string DataTypeSizeMinGrp = "dtSizeMin";
+            //string DataTypeSizeMaxGrp = "dtSizeMax";
+            //System.Diagnostics.Debug.WriteLine(
+            //    string.Format(@"(?<{0}>{1})\s*::=\s*\[(?<{2}>\w+)\s*(?<{3}>[0-9]+)\].*?(?<{4}>{5})\s*(?<{6}>{7})\s*(\(.*?(?<{8}>[0-9]+)\)\)|\((?<{9}>[0-9]+)..(?<{10}>[0-9]+)\)|\s*?)",
+            //        DataTypeNameGrp,
+            //        @"\w+",
+            //        DataTypeScopeGrp,
+            //        DataTypeIdGrp,
+            //        DataTypeClassGrp,
+            //        string.Join("|", Enum.GetNames(typeof(CustomDataType.ClassEnum))),
+            //        DataTypeBaseTypeGrp,
+            //        string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.DataTypeBase>()),
+            //        DataTypeSizeGrp,
+            //        DataTypeSizeMinGrp,
+            //        DataTypeSizeMaxGrp));
             //Console.WriteLine(SmiEnums.Parse<SmiEnums.ObjectTypeAccess>("read-only"));
 
             //Console.WriteLine(SmiEnums.ObjectTypeStatus.mandatory.ToString());
