@@ -49,13 +49,13 @@ namespace SmiParser
             IEnumerable<OidInfo> oids = OidsParser.ParseAllOids(mibFileTxt);
             foreach (OidInfo oi in oids)
             {
-                var oiNode = new TreeNode()
+                var oidNode = new TreeNode()
                 {
                     Children = new List<TreeNode>(),
                     Name = oi.Name,
                     SiblingIndex = oi.SiblingNo
                 };
-                TreeBuilder.InsertIntoTree(oiNode, oi.ParentExpression, result.FlatMibTree);
+                TreeBuilder.InsertIntoTree(oidNode, oi.ParentExpression, result.FlatMibTree);
             }
 
             IDictionary<OidInfo, ObjectTypeInfo> objectTypes = ObjectTypesParser.ParseAllObjectTypes(mibFileTxt); ;
@@ -65,14 +65,14 @@ namespace SmiParser
                 if (objType == null)
                     continue;
 
-                var oiNode = new TreeNode()
+                var otNode = new TreeNode()
                 {
                     Children = new List<TreeNode>(),
                     Name = objTypeInfoKV.Key.Name,
                     SiblingIndex = objTypeInfoKV.Key.SiblingNo,
                     ObjectType = objType
                 };
-                TreeBuilder.InsertIntoTree(oiNode, objTypeInfoKV.Key.ParentExpression, result.FlatMibTree);
+                TreeBuilder.InsertIntoTree(otNode, objTypeInfoKV.Key.ParentExpression, result.FlatMibTree);
             }
 
             return result;

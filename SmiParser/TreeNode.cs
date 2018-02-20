@@ -18,7 +18,10 @@ namespace SmiParser
         {
             get
             {
-                return string.Format("{0} ({1})", Name, SiblingIndex);
+                return string.Format("{0} ({1}) [{2}]", Name, SiblingIndex,
+                    ObjectType != null  && ObjectType.DataType != null
+                    ? ObjectType.DataType.Name
+                    : string.Empty);
             }
         }
 
