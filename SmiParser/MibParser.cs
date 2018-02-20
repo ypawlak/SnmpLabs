@@ -27,7 +27,7 @@ namespace SmiParser
                 }
                 catch (FileNotFoundException e)
                 {
-                    System.Diagnostics.Debug.WriteLine(string.Format("File {0} has not been found", e.Message));
+                    Debug.WriteLine(string.Format("File {0} has not been found", e.Message));
                 }
             }
 
@@ -56,6 +56,19 @@ namespace SmiParser
                     SiblingIndex = oi.SiblingNo
                 };
                 TreeBuilder.InsertIntoTree(oiNode, oi.ParentExpression, result.FlatMibTree);
+            }
+
+            IDictionary<OidInfo, ObjectType> objectTypes = ObjectTypesParser.ParseAllObjectTypes(mibFileTxt);
+            foreach (var objTypeKV in objectTypes)
+            {
+                var oiNode = new TreeNode()
+                {
+                    Children = new List<TreeNode>(),
+                    Name = objTypeKV.Key.Name,
+                    SiblingIndex = objTypeKV.Key.SiblingNo,
+                    ObjectType = objTypeKV.Value
+                };
+                TreeBuilder.InsertIntoTree(oiNode, objTypeKV.Key.ParentExpression, result.FlatMibTree);
             }
 
             return result;
