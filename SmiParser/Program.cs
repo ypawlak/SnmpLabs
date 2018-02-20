@@ -9,7 +9,7 @@ namespace SmiParser
     {
         static void Main(string[] args)
         {
-            //MibParser.Parse("RFC1213-MIB");
+            MibParser.Parse("RFC1213-MIB");
 
             System.Diagnostics.Debug.WriteLine(
                 string.Join("|", SmiEnums.GetEnumCustomizedTextList<SmiEnums.ObjectTypeAccess>()));

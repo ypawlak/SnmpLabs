@@ -64,7 +64,7 @@ namespace SmiParser
             throw new InvalidOperationException();
         }
 
-        private static string GetString<T>(T sEnum)
+        public static string GetString<T>(T sEnum)
         {
             if(typeof(T) == typeof(DataTypeScope) && (DataTypeScope)(object)sEnum == DataTypeScope.CONTEXT_SPECIFIC)
                 return ContextSpecificScopeString;
