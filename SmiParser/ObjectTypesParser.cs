@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
+using SmiParser.Utils;
 
 namespace SmiParser
 {
@@ -13,12 +14,12 @@ namespace SmiParser
         const string OtParentGrp = "oidParentExp";
         const string OtSiblingNoGrp = "siblingNum";
 
-        private readonly Regex objTypesGeneralParser = new Regex(
-            @"^(?<objTypeName>\w+)\s+OBJECT-TYPE\s+(?<objTypeDesc>.*?)\s+::=\s+{\s?(?<oidParentExp>.*?)\s+?(?<siblingNum>[0-9]+)\s+?}",
-            RegexOptions.Singleline | RegexOptions.Multiline);
-        private readonly Regex objTypesParserSyntax = new Regex(
-            @"^\s*SYNTAX\s*(?<objTypeSyntax>INTEGER|OCTET STRING|OBJECT IDENTIFIER|NULL|SEQUENCE|\w+)\s*(\(SIZE\s*\((?<objTypeSize>[0-9]+)\)\)|((\(SIZE\s+)|())\((?<objTypeSizeMin>[0-9]+)..(?<objTypeSizeMax>[0-9]+)\)|\s*?)");
-        public static IDictionary<OidInfo, ObjectType> ParseAllObjectTypes(string mibFile)
+        const string OtSyntaxGrp = "objTypeSyntax";
+        const string OtSizeGrp = "objTypeSize";
+        const string OtSizeMinGrp = "objTypeSizeMin";
+        const string OtSizeMaxGrp = "objTypeSizeMax";
+
+        public static IDictionary<OidInfo, ObjectTypeInfo> ParseAllObjectTypes(string mibFile)
         {
             Regex rx = GetObjTypesRegex();
             return ParseObjTypesRegexResults(rx.Matches(mibFile));
@@ -42,9 +43,9 @@ namespace SmiParser
                 RegexOptions.Singleline | RegexOptions.Multiline);
         }
 
-        private static IDictionary<OidInfo, ObjectType> ParseObjTypesRegexResults(MatchCollection regexResults)
+        private static IDictionary<OidInfo, ObjectTypeInfo> ParseObjTypesRegexResults(MatchCollection regexResults)
         {
-            var parsedObjTypes = new Dictionary<OidInfo, ObjectType>();
+            var parsedObjTypes = new Dictionary<OidInfo, ObjectTypeInfo>();
 
             foreach (Match match in regexResults)
             {
@@ -60,7 +61,7 @@ namespace SmiParser
                     ParentExpression = parentExpression
                 };
 
-                ObjectType parsedType = ParseObjectTypeFromSpecification(otSpecification);
+                ObjectTypeInfo parsedType = ParseObjectTypeFromSpecification(otSpecification);
 
                 parsedObjTypes.Add(oid, parsedType);
             }
@@ -68,10 +69,50 @@ namespace SmiParser
             return parsedObjTypes;
         }
 
-        private static ObjectType ParseObjectTypeFromSpecification(string specification)
+        private static ObjectTypeInfo ParseObjectTypeFromSpecification(string specification)
         {
-            //TODO: parse object types specification
-            return null;
+            IList<ObjectTypeInfo> objTypeInfos = new List<ObjectTypeInfo>();
+            foreach (Match match in GetObjectTypeSpecificsRegex().Matches(specification))
+            {
+                var objTypeI = new ObjectTypeInfo();
+                objTypeI.Syntax = match.Groups[OtSyntaxGrp].Value;
+                string sizeRestriction = match.Groups[OtSizeGrp].Value;
+                string sizeRestrictionMin = match.Groups[OtSizeMinGrp].Value;
+                string sizeRestrictionMax = match.Groups[OtSizeMaxGrp].Value;
+                
+                if (string.IsNullOrEmpty(sizeRestriction))
+                {
+                    if (!string.IsNullOrEmpty(sizeRestrictionMin)
+                        && !string.IsNullOrEmpty(sizeRestrictionMax))
+                    {
+                        objTypeI.SyntaxSizeRange = new Range<long>(
+                            long.Parse(sizeRestrictionMin), long.Parse(sizeRestrictionMax));
+                    }
+                }
+                else
+                {
+                    objTypeI.SyntaxSize = long.Parse(sizeRestriction);
+                }
+
+                //TODO: parse the rest of object types specification
+
+                objTypeInfos.Add(objTypeI);
+            }
+            return objTypeInfos.Single();
+        }
+
+        private static Regex GetObjectTypeSpecificsRegex()
+        {
+            //TODO: match access, status and description
+            return new Regex(
+                string.Format(@"^\s*SYNTAX\s*(?<{0}>INTEGER|OCTET STRING|OBJECT IDENTIFIER|NULL|SEQUENCE|\w+)\s*(\(SIZE\s*\((?<{1}>[0-9]+)\)\)|((\(SIZE\s+)|())\((?<{2}>[0-9]+)..(?<{3}>[0-9]+)\)|\s*?)",
+                        OtSyntaxGrp,
+                        OtSizeGrp,
+                        OtSizeMinGrp,
+                        OtSizeMaxGrp
+                    ),
+                    RegexOptions.Singleline | RegexOptions.Multiline
+                );
         }
     }
 }

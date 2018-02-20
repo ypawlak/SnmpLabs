@@ -58,17 +58,21 @@ namespace SmiParser
                 TreeBuilder.InsertIntoTree(oiNode, oi.ParentExpression, result.FlatMibTree);
             }
 
-            IDictionary<OidInfo, ObjectType> objectTypes = ObjectTypesParser.ParseAllObjectTypes(mibFileTxt);
-            foreach (var objTypeKV in objectTypes)
+            IDictionary<OidInfo, ObjectTypeInfo> objectTypes = ObjectTypesParser.ParseAllObjectTypes(mibFileTxt); ;
+            foreach (var objTypeInfoKV in objectTypes)
             {
+                ObjectType objType = GetObjectTypeFromInfo(result.DataTypes, objTypeInfoKV.Value);
+                if (objType == null)
+                    continue;
+
                 var oiNode = new TreeNode()
                 {
                     Children = new List<TreeNode>(),
-                    Name = objTypeKV.Key.Name,
-                    SiblingIndex = objTypeKV.Key.SiblingNo,
-                    ObjectType = objTypeKV.Value
+                    Name = objTypeInfoKV.Key.Name,
+                    SiblingIndex = objTypeInfoKV.Key.SiblingNo,
+                    ObjectType = objType
                 };
-                TreeBuilder.InsertIntoTree(oiNode, objTypeKV.Key.ParentExpression, result.FlatMibTree);
+                TreeBuilder.InsertIntoTree(oiNode, objTypeInfoKV.Key.ParentExpression, result.FlatMibTree);
             }
 
             return result;
@@ -143,27 +147,28 @@ namespace SmiParser
             return alias;
         }
 
-        //public static IEnumerable<CustomDataType> ParseImport(ImportInfo toImport, string sourceFilesPath)
-        //{
-        //    string mibFileTxt;
-        //    try
-        //    {
-        //        mibFileTxt = FileUtils.GetAllFileAsText(sourceFilesPath, toImport.Filename);
-        //    }
-        //    catch(FileNotFoundException e)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine(string.Format("File {0} has not been found: {1}",
-        //            toImport.Filename, e.Message));
-        //        return new List<CustomDataType>();
-        //    }
+        public static ObjectType GetObjectTypeFromInfo(IDictionary<string, IDataType> currentDataTypes,
+            ObjectTypeInfo otInfo)
+        {
+            var objType = new ObjectType()
+            {
+                Syntax = otInfo.Syntax,
+                Size = otInfo.SyntaxSize,
+                SizeRange = otInfo.SyntaxSizeRange,
+                Access = otInfo.Access,
+                Description = otInfo.Description,
+                Status = otInfo.Status
+            };
 
-        //    IEnumerable<CustomDataType> importedDts = new List<CustomDataType>();
-        //    IEnumerable<ImportInfo> recImports = ImportsParser.ParseImportInfo(mibFileTxt);
-        //    foreach (ImportInfo rImport in recImports)
-        //        importedDts = importedDts.Concat(ParseImport(rImport, sourceFilesPath));
+            if (!string.IsNullOrEmpty(otInfo.Syntax) && currentDataTypes.ContainsKey(otInfo.Syntax))
+                objType.DataType = currentDataTypes[otInfo.Syntax];
+            else
+            {
+                Debug.WriteLine(string.Format("Original DataType not found for ObjectType syntax: {0} ",
+                    otInfo.Syntax));
+            }
 
-        //    return importedDts.Concat(
-        //        DataTypesParser.ParseSpecifiedDataTypes(toImport.Terms, mibFileTxt));
-        //}
+            return objType;
+        }
     }
 }
