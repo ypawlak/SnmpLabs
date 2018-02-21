@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace SmiParser
 {
@@ -18,9 +19,9 @@ namespace SmiParser
         {
             get
             {
-                return string.Format("{0} ({1}) [{2}]", Name, SiblingIndex,
-                    ObjectType != null  && ObjectType.DataType != null
-                    ? ObjectType.DataType.Name
+                return string.Format("{0} ({1}) {2}", Name, SiblingIndex,
+                    ObjectType != null 
+                    ? ObjectType.DisplayName
                     : string.Empty);
             }
         }
@@ -44,5 +45,29 @@ namespace SmiParser
                 Children[i].PrintToConsole(indent, i == Children.Count - 1);
         }
         #endregion
+
+        public TreeNode FindByIndex(Queue<long> indexPath)
+        {
+            if(indexPath.Any())
+            {
+                if(indexPath.Peek() == SiblingIndex)
+                {
+                    indexPath.Dequeue();
+                    if (indexPath.Any())
+                    {
+                        foreach(TreeNode child in Children)
+                        {
+                            TreeNode found = child.FindByIndex(indexPath);
+                            if (found != null)
+                                return found;
+                        }
+                        throw new Exception("Node could not be found");
+                    }
+                    else
+                        return this;
+                }
+            }
+            return null;
+        }
     }
 }

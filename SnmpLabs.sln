@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmiMibParser", "SmiParser\SmiMibParser.csproj", "{B339CB94-0C23-4D0C-8EF8-7CE641F438DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BerEncoder", "BEREncoder\BerEncoder.csproj", "{012BB00C-F1AD-4E73-9639-3E3135541F85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BerCoding", "BEREncoder\BerCoding.csproj", "{012BB00C-F1AD-4E73-9639-3E3135541F85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

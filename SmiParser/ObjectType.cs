@@ -14,5 +14,15 @@ namespace SmiParser
         public string Description { get; set; }
         public long? Size { get; set; }
         public Range<long> SizeRange { get; set; }
+
+        public string DisplayName
+        {
+            get
+            {
+                return DataType != null
+                    ? string.Format("[{0} ({1})]", DataType.Name, SmiEnums.GetString(DataType.BaseType))
+                    : string.Empty;
+            }
+        }
     }
 }
