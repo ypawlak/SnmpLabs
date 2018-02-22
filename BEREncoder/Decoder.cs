@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BerEncoding
 {
-    class Decoder
+    public class Decoder
     {
         public static DecodedObjectMeta DecodeObject(byte[] bytes)
         {

@@ -6,14 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DecodedObjectMetadata.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="DecodedObjectMeta.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SmiParser\SmiMibParser.csproj" />
   </ItemGroup>
 

@@ -25,14 +25,10 @@ namespace ConsoleInterface
                 {
                     found = mib.MibTreeRoot.FindByIndex(pathQ);
                 }
-                catch (Exception e)
-                {
-
-                }
+                catch (Exception e) { }
 
                 if (found != null)
                 {
-                    
                     Console.WriteLine(found.RestrictionsDescription);
                 }
                 else
@@ -51,17 +47,34 @@ namespace ConsoleInterface
                 while (!found.Validate(value));
 
                 byte[] encodedBytes = BerEncoding.Encoder.Encode(found.ObjectType.DataType, value).ToArray();
-                Console.WriteLine(string.Join(" ",
-                    encodedBytes.Select(x => Convert.ToString(x, 2).PadLeft(8, '0'))));
-
+                Console.WriteLine(ByteArrayToBinaryString(encodedBytes));
+                Console.WriteLine(ByteArrayToHexString(encodedBytes));
+                BerEncoding.DecodedObjectMeta decoded  = BerEncoding.Decoder.DecodeObject(encodedBytes);
+                Console.WriteLine("> Enter hex string to decode");
+                string hexBytes = Console.ReadLine();
+                byte[] toDecode = HexStringToByteArray(hexBytes);
+                decoded = BerEncoding.Decoder.DecodeObject(toDecode);
             }
         }
-        private static byte[] StringToByteArray(string hex)
+
+        private static string ByteArrayToBinaryString(byte[] byteArr)
         {
-            return Enumerable.Range(0, hex.Length)
-                .Where(x => x % 2 == 0)
-                .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                .ToArray();
+            return string.Join(" ",
+                    byteArr.Select(x => Convert.ToString(x, 2).PadLeft(8, '0')));
+        }
+
+        public static string ByteArrayToHexString(byte[] byteArr)
+        {
+            string hex = BitConverter.ToString(byteArr);
+            return hex.Replace("-", "");
+        }
+        public static byte[] HexStringToByteArray(string hex)
+        {
+            int NumberChars = hex.Length;
+            byte[] bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            return bytes;
         }
     }
 }
