@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace BerEncoder
+namespace BerEncoding
 {
-    class Encoder
+    public class Encoder
     {
-        private static readonly Dictionary<SmiEnums.DataTypeBase, byte> TagNumbersByTypes =
+        public static readonly Dictionary<SmiEnums.DataTypeBase, byte> TagNumbersByTypes =
             new Dictionary<SmiEnums.DataTypeBase, byte>
         {
             { SmiEnums.DataTypeBase.INTEGER, 2 },
@@ -25,7 +25,6 @@ namespace BerEncoder
 
             byte identifierOctet = EncodeIdentifier(dataType);
             encodedOctets.Add(identifierOctet);
-            
 
             if (dataType.BaseType == SmiEnums.DataTypeBase.INTEGER)
             {
@@ -36,25 +35,22 @@ namespace BerEncoder
             }
             else if (dataType.BaseType == SmiEnums.DataTypeBase.OCTET_STRING)
             {
-                byte length = 0;
-                int lengthInBytes = value.Length; //Char is 2 bytes, so we ignore half
-                if (lengthInBytes <= 127)
+                if (value.Length <= 127)
                 {
-                    length |= (byte)lengthInBytes;
+                    byte length = 0;
+                    length |= (byte)value.Length;
                     encodedOctets.Add(length);
                 }
                 else
                 {
-                    byte kOctets = GetNOctets(lengthInBytes);
+                    byte kOctets = GetNumberOfOctets(value.Length);
                     encodedOctets.Add(kOctets);
-                    var bytes = BitConverter.GetBytes(lengthInBytes);
+                    var bytes = BitConverter.GetBytes(value.Length);
                     for (var i = 0; i < kOctets; i++)
-                    {
                         encodedOctets.Add(bytes[sizeof(int) - kOctets + i]);
-                    }
                 }
 
-                for (var i = 0; i < lengthInBytes; i++)
+                for (var i = 0; i < value.Length; i++)
                     encodedOctets.Add((byte)value[i]);
             }
 
@@ -64,8 +60,7 @@ namespace BerEncoder
         private static byte EncodeIdentifier(IDataType dataType)
         {
             byte identifierOctet = 0; //Class 00 - universal
-            var customDt = dataType as CustomDataType;
-            if (customDt != null)
+            if (dataType is CustomDataType customDt)
             {
                 switch (customDt.Scope)
                 {
@@ -92,7 +87,7 @@ namespace BerEncoder
             return identifierOctet;
         }
 
-        private static byte GetNOctets(int length)
+        private static byte GetNumberOfOctets(int length)
         {
             return (byte)Math.Ceiling((Math.Log(length, 2) + 1) / 8);
         }

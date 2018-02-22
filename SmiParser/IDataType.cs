@@ -9,5 +9,8 @@ namespace SmiParser
     {
         string Name { get; }
         DataTypeBase BaseType { get; }
+
+        string RestrictionsDescription { get; }
+        bool Validate(string value);
     }
 }

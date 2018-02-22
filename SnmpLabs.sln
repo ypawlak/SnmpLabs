@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmiMibParser", "SmiParser\SmiMibParser.csproj", "{B339CB94-0C23-4D0C-8EF8-7CE641F438DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BerCoding", "BEREncoder\BerCoding.csproj", "{012BB00C-F1AD-4E73-9639-3E3135541F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BerEncoding", "BEREncoder\BerEncoding.csproj", "{012BB00C-F1AD-4E73-9639-3E3135541F85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleInterface", "ConsoleInterface\ConsoleInterface.csproj", "{074F2CD4-821E-46ED-996F-1D4CB270B3E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{012BB00C-F1AD-4E73-9639-3E3135541F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{012BB00C-F1AD-4E73-9639-3E3135541F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{012BB00C-F1AD-4E73-9639-3E3135541F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{074F2CD4-821E-46ED-996F-1D4CB270B3E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{074F2CD4-821E-46ED-996F-1D4CB270B3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{074F2CD4-821E-46ED-996F-1D4CB270B3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{074F2CD4-821E-46ED-996F-1D4CB270B3E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

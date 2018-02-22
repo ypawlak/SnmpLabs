@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BEREncoder\BerEncoding.csproj" />
     <ProjectReference Include="..\SmiParser\SmiMibParser.csproj" />
   </ItemGroup>
 

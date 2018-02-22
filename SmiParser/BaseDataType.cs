@@ -8,5 +8,20 @@ namespace SmiParser
     {
         public string Name { get ; set ; }
         public SmiEnums.DataTypeBase BaseType { get ; set; }
+
+        public virtual string RestrictionsDescription => Name;
+
+        public virtual bool Validate(string value)
+        {
+            switch(BaseType)
+            {
+                case SmiEnums.DataTypeBase.INTEGER:
+                    return long.TryParse(value, out var outVal);
+                case SmiEnums.DataTypeBase.OCTET_STRING:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }

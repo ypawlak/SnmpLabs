@@ -20,9 +20,21 @@ namespace SmiParser
             get
             {
                 return string.Format("{0} ({1}) {2}", Name, SiblingIndex,
-                    ObjectType != null 
-                    ? ObjectType.DisplayName
-                    : string.Empty);
+                    ObjectType != null
+                        ? ObjectType.DisplayName
+                        : string.Empty);
+            }
+        }
+
+        public string RestrictionsDescription
+        {
+            get
+            {
+                string desc = Name + Environment.NewLine +
+                    (ObjectType == null
+                        ? "No OBJECT-TYPE has been set"
+                        : ObjectType.RestrictionsDescrption);
+                return desc;
             }
         }
 
@@ -45,6 +57,14 @@ namespace SmiParser
                 Children[i].PrintToConsole(indent, i == Children.Count - 1);
         }
         #endregion
+
+        public bool Validate(string value)
+        {
+            if (ObjectType == null)
+                return false;
+            return ObjectType.Validate(value);
+
+        }
 
         public TreeNode FindByIndex(Queue<long> indexPath)
         {
