@@ -11,7 +11,7 @@ namespace SmiParser
 {
     public static class MibParser
     {
-        public const string MibFilesPath = @"..//SmiParser//MibSources//";
+        public const string MibFilesPath = @".//SmiParser//MibSources//";
         public static MibData Parse(string fileName)
         {
             MibData result = InitMibData();

@@ -25,7 +25,7 @@ namespace ConsoleInterface
                 {
                     found = mib.MibTreeRoot.FindByIndex(pathQ);
                 }
-                catch (Exception e) { }
+                catch (Exception) { }
 
                 if (found != null)
                 {
