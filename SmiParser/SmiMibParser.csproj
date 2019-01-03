@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <Folder Include="MibSources\" />
+    <Folder Include="Info\" />
+    <Folder Include="Model\" />
+    <Folder Include="Parsers\" />
   </ItemGroup>
 
 </Project>
