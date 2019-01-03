@@ -11,12 +11,12 @@ namespace SmiParser
 {
     public static class MibParser
     {
-        public const string MibFilesPath = @".//SmiParser//MibSources//";
+        public const string MibFilesFolder = @"MibSources\";
         public static MibData Parse(string fileName)
         {
             MibData result = InitMibData();
 
-            string mibFileTxt = FileUtils.GetAllFileAsText(MibFilesPath, fileName);
+            string mibFileTxt = FileUtils.GetAllFileAsText(MibFilesFolder, fileName);
             IEnumerable<ImportInfo> importsByFiles = ImportsParser.ParseImportInfo(mibFileTxt);
             foreach (ImportInfo singleFileImports in importsByFiles)
             {

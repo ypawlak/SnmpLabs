@@ -12,5 +12,12 @@
     <Folder Include="Model\" />
     <Folder Include="Parsers\" />
   </ItemGroup>
+    <ItemGroup>
+    <Content Include="MibSources\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
+  </ItemGroup>
+
+
 
 </Project>

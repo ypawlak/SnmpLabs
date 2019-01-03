@@ -11,7 +11,7 @@ namespace ConsoleInterface
         {
             //Parse mib file into tree
             MibData mib = MibParser.Parse("RFC1213-MIB");
-            mib.MibTreeRoot.PrintToConsole("", true);
+            mib.MibTreeRoot.PrintToConsole(string.Empty, true);
             
             //Select oid
             TreeNode found = null;
