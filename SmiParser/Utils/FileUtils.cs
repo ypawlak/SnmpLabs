@@ -8,7 +8,13 @@ namespace SmiParser.Utils
 {
     public static class FileUtils
     {
-        public static string GetAllFileAsText(string innerPath, string filename)
+        /// <summary>
+        /// Reads all text from given file existing in build output directory
+        /// </summary>
+        /// <param name="innerPath">Inner path in output directory (without filename)</param>
+        /// <param name="filename"></param>
+        /// <returns>Whole file read to string</returns>
+        public static string ReadFileFromOutputDirectory(string innerPath, string filename)
         {
             string innerFilePath = Path.Combine(innerPath, filename);
             string filePath = string.Empty;

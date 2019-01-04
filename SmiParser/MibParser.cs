@@ -16,7 +16,7 @@ namespace SmiParser
         {
             MibData result = InitMibData();
 
-            string mibFileTxt = FileUtils.GetAllFileAsText(MibFilesFolder, fileName);
+            string mibFileTxt = SmiParser.Utils.FileUtils.ReadFileFromOutputDirectory(MibFilesFolder, fileName);
             IEnumerable<ImportInfo> importsByFiles = ImportsParser.ParseImportInfo(mibFileTxt);
             foreach (ImportInfo singleFileImports in importsByFiles)
             {
