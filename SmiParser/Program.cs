@@ -1,4 +1,5 @@
-﻿using SmiParser.Utils;
+﻿using SmiParser.Model;
+using SmiParser.Utils;
 using System;
 using System.IO;
 using System.Linq;

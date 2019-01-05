@@ -1,9 +1,10 @@
-﻿using SmiParser.Utils;
+﻿using SmiParser.Model;
+using SmiParser.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmiParser
+namespace SmiParser.Info
 {
     public class ObjectTypeInfo
     {

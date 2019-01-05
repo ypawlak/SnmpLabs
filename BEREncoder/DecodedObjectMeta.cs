@@ -6,7 +6,7 @@ namespace BerEncoding
 {
     public class DecodedObjectMeta
     {
-        public SmiParser.SmiEnums.DataTypeScope Class { get; set; }
+        public SmiParser.Model.SmiEnums.DataTypeScope Class { get; set; }
         public bool Constructed { get; set; }
         public int Tag { get; set; }
 

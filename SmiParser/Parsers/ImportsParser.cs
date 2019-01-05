@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SmiParser.Info;
 
-namespace SmiParser
+namespace SmiParser.Parsers
 {
     public static class ImportsParser
     {

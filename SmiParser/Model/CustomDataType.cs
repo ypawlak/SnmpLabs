@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SmiParser.Utils;
 
-namespace SmiParser
+namespace SmiParser.Model
 {
     public class CustomDataType : BaseDataType
     {

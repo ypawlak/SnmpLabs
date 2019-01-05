@@ -4,8 +4,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
 using SmiParser.Utils;
+using SmiParser.Info;
 
-namespace SmiParser
+namespace SmiParser.Parsers
 {
     class ObjectTypesParser
     {
@@ -24,12 +25,6 @@ namespace SmiParser
             Regex rx = GetObjTypesRegex();
             return ParseObjTypesRegexResults(rx.Matches(mibFile));
         }
-
-        //public static IList<OidInfo> ParseSpecifiedObjTypes(IEnumerable<string> otNames, string mibFile)
-        //{
-        //    Regex rx = GetOidsRegex(otNames);
-        //    return ParseOidsRegexResults(rx.Matches(mibFile));
-        //}
 
         private static Regex GetObjTypesRegex()
         {

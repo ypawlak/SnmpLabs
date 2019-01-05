@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static SmiParser.SmiEnums;
-
-namespace SmiParser
+using static SmiParser.Model.SmiEnums;
+namespace SmiParser.Model
 {
     public interface IDataType
     {

@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using SmiParser.Utils;
 using System.Diagnostics;
+using SmiParser.Model;
+using SmiParser.Info;
+using SmiParser.Parsers;
 
 namespace SmiParser
 {

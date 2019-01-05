@@ -54,14 +54,14 @@ namespace BerEncoding
             if ((identifierOctet & 1 << 7) == 0)
             {
                 decodedMeta.Class = (identifierOctet & 1 << 6) == 0
-                    ? SmiParser.SmiEnums.DataTypeScope.UNIVERSAL
-                    : SmiParser.SmiEnums.DataTypeScope.APPLICATION;
+                    ? SmiParser.Model.SmiEnums.DataTypeScope.UNIVERSAL
+                    : SmiParser.Model.SmiEnums.DataTypeScope.APPLICATION;
             }
             else
             {
                 decodedMeta.Class = (identifierOctet & 1 << 6) == 0
-                    ? SmiParser.SmiEnums.DataTypeScope.CONTEXT_SPECIFIC
-                    : SmiParser.SmiEnums.DataTypeScope.PRIVATE;
+                    ? SmiParser.Model.SmiEnums.DataTypeScope.CONTEXT_SPECIFIC
+                    : SmiParser.Model.SmiEnums.DataTypeScope.PRIVATE;
             }
 
             decodedMeta.Constructed = (identifierOctet & 1 << 5) != 0;

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
+using SmiParser.Model;
+using SmiParser.Info;
 
-namespace SmiParser
+namespace SmiParser.Parsers
 {
     public static class AliasesParser
     {

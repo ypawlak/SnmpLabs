@@ -4,8 +4,9 @@ using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
 using SmiParser.Utils;
+using SmiParser.Model;
 
-namespace SmiParser
+namespace SmiParser.Parsers
 {
     public static class DataTypesParser
     {

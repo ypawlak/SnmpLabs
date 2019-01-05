@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SmiParser.Info;
 
-namespace SmiParser
+namespace SmiParser.Model
 {
     public class ObjectNode
     {

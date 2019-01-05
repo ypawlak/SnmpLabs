@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmiParser
+namespace SmiParser.Model
 {
     public class BaseDataType : IDataType
     {

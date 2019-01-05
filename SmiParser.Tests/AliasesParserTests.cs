@@ -7,6 +7,7 @@ using Xunit;
 using Xunit.Sdk;
 using SmiParser;
 using SmiParser.Info;
+using SmiParser.Parsers;
 
 namespace SmiParser.Tests
 {
